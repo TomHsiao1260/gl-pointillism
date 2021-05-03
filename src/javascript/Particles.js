@@ -12,14 +12,22 @@ export default class Particles {
 
     setDistribution() {
         this.positions = [];
-        this.numInstances = 80000;
+        this.counts = 90000;
+        this.noise = 1.0;
+        this.range = 800;
 
-        for (let i = 0; i < this.numInstances; i++) {
-            const positionX = 800 * (Math.random() - 0.5);
-            const positionY = 800 * (Math.random() - 0.5);
-            const x = this.gl.canvas.clientWidth / 2 + positionX;
-            const y = this.gl.canvas.clientHeight / 2 + positionY;
-            this.positions.push(x, y);
+        const sqrtN = Math.sqrt(this.counts);
+
+        for (let i = 0; i < sqrtN; i++) {
+            for (let j = 0; j < sqrtN; j++) {
+                const noiseX = this.noise * (Math.random() - 0.5);
+                const noiseY = this.noise * (Math.random() - 0.5);
+                const shiftX = this.range * ((i + noiseX) / sqrtN - 0.5);
+                const shiftY = this.range * ((j + noiseY) / sqrtN - 0.5);
+                const posX = this.gl.canvas.clientWidth / 2 + shiftX;
+                const posY = this.gl.canvas.clientHeight / 2 + shiftY;
+                this.positions.push(posX, posY);
+            }
         }
     }
 
@@ -41,7 +49,7 @@ export default class Particles {
         this.renderAttributes();
         this.renderUniforms();
 
-        this.gl.drawArrays(this.gl.POINTS, 0, this.numInstances);
+        this.gl.drawArrays(this.gl.POINTS, 0, this.counts);
     }
 
     renderUniforms() {
