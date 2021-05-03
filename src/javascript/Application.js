@@ -12,8 +12,7 @@ export default class Application {
         this.$canvas = _option.$canvas;
 
         this.gl = this.$canvas.getContext('webgl');
-        this.ext = this.gl.getExtension('ANGLE_instanced_arrays');
-        if (!this.gl || !this.ext) return;
+        if (!this.gl) return;
 
         this.time = new Time();
         this.utils = new Utils({ gl: this.gl });
@@ -38,7 +37,6 @@ export default class Application {
         });
 
         this.particles = new Particles({
-            ext: this.ext,
             time: this.time,
             gl: this.gl,
             program: this.program,

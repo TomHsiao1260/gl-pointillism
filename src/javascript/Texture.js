@@ -17,26 +17,10 @@ export default class Texture {
         this.images.push(this.resources.spot);
         this.images.push(this.resources.paint);
 
-        this.points = [];
-        this.points.push(0.0, 0.0);
-        this.points.push(1.0, 0.0);
-        this.points.push(0.0, 1.0);
-        this.points.push(0.0, 1.0);
-        this.points.push(1.0, 0.0);
-        this.points.push(1.0, 1.0);
-
         this.textures = [];
     }
 
     setAttributes() {
-        this.texCoordLocation = this.gl.getAttribLocation(this.program, 'a_texCoord');
-        this.texCoordBuffer = this.gl.createBuffer();
-        this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.texCoordBuffer);
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(this.points), this.gl.STATIC_DRAW);
-
-        this.gl.enableVertexAttribArray(this.texCoordLocation);
-        this.gl.vertexAttribPointer(this.texCoordLocation, 2, this.gl.FLOAT, false, 0, 0);
-
         this.images.forEach((image) => {
             const texture = this.gl.createTexture();
             this.gl.bindTexture(this.gl.TEXTURE_2D, texture);
