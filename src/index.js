@@ -1,6 +1,8 @@
 import './styles/style.css';
 import Application from './javascript/Application';
 
+// 可參考資源: https://www.gushiciku.cn/pl/2qbu/zh-tw
+
 window.application = new Application({
     $canvas: document.querySelector('.webgl'),
 });
